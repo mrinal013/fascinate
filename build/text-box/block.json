@@ -1,16 +1,39 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "create-block/fascinate-text-box",
+  "name": "fascinate-block/text-box",
   "version": "0.1.0",
-  "title": "Fascinate Text Box",
-  "category": "text",
+  "title": "Text Box",
+  "category": "fascinate",
   "icon": "smiley",
   "description": "Example block scaffolded with Create Block tool.",
   "example": {},
   "supports": {
-    "html": false
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true
+    },
+    "typography": {
+      "fontSize": true
+    },
+    "spacing": {
+      "padding": true
+    }
   },
+  "styles": [
+    {
+      "name": "square",
+      "label": "Square",
+      "isDefault": true
+    },
+    {
+      "name": "rounded",
+      "label": "Rounded",
+      "isDefault": false
+    }
+  ],
   "textdomain": "fascinate",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
@@ -20,11 +43,19 @@
     "text": {
       "type": "string",
       "source": "html",
-      "selector": "h4"
+      "selector": "p"
     },
-    "alignment": {
+    "textAlignment": {
       "type": "string",
       "default": "left"
+    },
+    "shadow": {
+      "type": "boolean",
+      "default": false
+    },
+    "shadowOpacity": {
+      "type": "number",
+      "default": 30
     }
   }
 }

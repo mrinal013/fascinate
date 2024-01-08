@@ -11,12 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import {
-	useBlockProps,
-	RichText,
-	BlockControls,
-	AlignmentToolbar,
-} from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -39,34 +34,10 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit( { attributes, setAttributes } ) {
-	const { text, alignment } = attributes;
-
-	const onChangeText = ( newText ) => {
-		setAttributes( { text: newText } );
-	};
-
-	const onChangeAlignment = ( newAlignment ) => {
-		setAttributes( { alignment: newAlignment } );
-	};
+export default function Edit() {
 	return (
-		<>
-			<BlockControls>
-				<AlignmentToolbar
-					onChange={ onChangeAlignment }
-					value={ alignment }
-				/>
-			</BlockControls>
-			<RichText
-				{ ...useBlockProps( {
-					className: `text-box-align-${ alignment }`,
-				} ) }
-				onChange={ onChangeText }
-				value={ text }
-				placeholder={ __( 'Your Text', 'dope' ) }
-				tagName="h4"
-				allowedFormats={ [] }
-			/>
-		</>
+		<div { ...useBlockProps() }>
+			<InnerBlocks allowedBlocks={ [ 'fascinate-block/team-member' ] } />
+		</div>
 	);
 }

@@ -1,14 +1,33 @@
 /**
  * The following styles get applied both on the front of your site
  * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-fascinate {
+.wp-block-fascinate-block-text-box {
 	background-color: #21759b;
 	color: #fff;
 	padding: 2px;
+	&.is-style-square {
+		border-radius: 0;
+	}
+	&.is-style-rounded {
+		border-radius: 10px;
+	}
+	&.has-shadow {
+		box-shadow: 0 0 20px rgba( 0, 0, 0, 0.3 );
+		&.shadow-opacity-10 {
+			box-shadow: 0 0 20px rgba( 0, 0, 0, 0.1 );
+		}
+		&.shadow-opacity-20 {
+			box-shadow: 0 0 20px rgba( 0, 0, 0, 0.2 );
+		}
+		&.shadow-opacity-30 {
+			box-shadow: 0 0 20px rgba( 0, 0, 0, 0.3 );
+		}
+		&.shadow-opacity-40 {
+			box-shadow: 0 0 20px rgba( 0, 0, 0, 0.4 );
+		}
+	}
 	&.text-box-align-left {
 		text-align: left;
 	}

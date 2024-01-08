@@ -24,8 +24,31 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function fascinate_fascinate_block_init() {
+function fascinate_block_init() {
 	register_block_type( __DIR__ . '/build/text-box' );
 	register_block_type( __DIR__ . '/build/team' );
 }
-add_action( 'init', 'fascinate_fascinate_block_init' );
+add_action( 'init', 'fascinate_block_init' );
+
+/**
+ * Add a block category for "Fascinate" if it doesn't exist already.
+ *
+ * @param array $categories Array of block categories.
+ *
+ * @return array
+ */
+function fascinate_block_categories( $categories ) {
+    $category_slugs = wp_list_pluck( $categories, 'slug' );
+    return in_array( 'fascinate', $category_slugs, true ) ? $categories : array_merge(
+        
+        array(
+            array(
+                'slug'  => 'fascinate',
+                'title' => __( 'Fascinate', 'fascinate' ),
+                'icon'  => null,
+            ),
+        ),
+		$categories
+    );
+}
+add_filter( 'block_categories_all', 'fascinate_block_categories' );

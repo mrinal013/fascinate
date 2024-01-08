@@ -1,12 +1,16 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "create-block/fascinate-team",
+  "name": "fascinate-block/team-members",
   "version": "0.1.0",
-  "title": "Fascinate Team Block",
-  "category": "text",
-  "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "title": "Team Members",
+  "category": "fascinate",
+  "icon": "groups",
+  "description": "A team members grid.",
+  "keywords": [
+    "Team",
+    "Members"
+  ],
   "example": {},
   "supports": {
     "html": false
@@ -15,16 +19,5 @@
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
-  "viewScript": "file:./view.js",
-  "attributes": {
-    "text": {
-      "type": "string",
-      "source": "html",
-      "selector": "h4"
-    },
-    "alignment": {
-      "type": "string",
-      "default": "left"
-    }
-  }
+  "viewScript": "file:./view.js"
 }

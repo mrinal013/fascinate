@@ -1,5 +1,4 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/text-box/edit.js":
@@ -8,6 +7,7 @@
   \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Edit)
@@ -18,7 +18,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/text-box/editor.scss");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editor.scss */ "./src/text-box/editor.scss");
 
 /**
  * Retrieves the translation of text.
@@ -33,6 +37,8 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
+
+
 
 
 /**
@@ -62,7 +68,9 @@ function Edit({
 }) {
   const {
     text,
-    alignment
+    textAlignment,
+    shadow,
+    shadowOpacity
   } = attributes;
   const onChangeText = newText => {
     setAttributes({
@@ -71,20 +79,51 @@ function Edit({
   };
   const onChangeAlignment = newAlignment => {
     setAttributes({
-      alignment: newAlignment
+      textAlignment: newAlignment
     });
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentToolbar, {
+  const toggleShadow = () => {
+    setAttributes({
+      shadow: !shadow
+    });
+  };
+  const onChangeShadowOpacity = newShadowOpacity => {
+    setAttributes({
+      shadowOpacity: newShadowOpacity
+    });
+  };
+  const classes = classnames__WEBPACK_IMPORTED_MODULE_4___default()(`text-box-align-${textAlignment}`, {
+    'has-shadow': shadow,
+    [`shadow-opacity-${shadowOpacity}`]: shadow && shadowOpacity
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
+    group: "styles"
+  }, shadow && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Shadow Setting', 'fascinate')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Shadow Opacity', 'fascinate'),
+    onChange: onChangeShadowOpacity,
+    value: shadowOpacity,
+    min: 10,
+    max: 40,
+    step: 10
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, {
+    controls: [{
+      icon: 'admin-page',
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Shadow', 'fascinated'),
+      onClick: toggleShadow
+    }]
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentToolbar, {
     onChange: onChangeAlignment,
-    value: alignment
+    value: textAlignment
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
-      className: `text-box-align-${alignment}`
+      className: classes
     }),
     onChange: onChangeText,
     value: text,
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Your Text', 'dope'),
-    tagName: "h4",
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Your Text', 'fascinate'),
+    tagName: "p",
     allowedFormats: []
   }));
 }
@@ -97,6 +136,7 @@ function Edit({
   \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
@@ -104,6 +144,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/text-box/edit.js");
 /* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/text-box/save.js");
 /* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/text-box/block.json");
+/* harmony import */ var _v1__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./v1 */ "./src/text-box/v1.js");
+/* harmony import */ var _v2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./v2 */ "./src/text-box/v2.js");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -127,6 +169,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -140,7 +184,50 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * @see ./save.js
    */
-  save: _save__WEBPACK_IMPORTED_MODULE_3__["default"]
+  save: _save__WEBPACK_IMPORTED_MODULE_3__["default"],
+  deprecated: [_v2__WEBPACK_IMPORTED_MODULE_6__["default"], _v1__WEBPACK_IMPORTED_MODULE_5__["default"]],
+  transforms: {
+    from: [{
+      type: 'block',
+      blocks: ['core/paragraph'],
+      transform: ({
+        content,
+        align
+      }) => {
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)('fascinate-block/text-box', {
+          text: content,
+          textAlignment: align
+        });
+      }
+    }, {
+      type: 'enter',
+      regExp: /textbox/i,
+      transform: () => {
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)('fascinate-block/text-box', {
+          shadow: true,
+          gradient: 'red-to-blue'
+        });
+      }
+    }],
+    to: [{
+      type: 'block',
+      blocks: ['core/paragraph'],
+      isMatch: ({
+        text
+      }) => {
+        return text ? true : false;
+      },
+      transform: ({
+        text,
+        textAlignment
+      }) => {
+        return (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.createBlock)('core/paragraph', {
+          content: text,
+          align: textAlignment
+        });
+      }
+    }]
+  }
 });
 
 /***/ }),
@@ -151,6 +238,7 @@ __webpack_require__.r(__webpack_exports__);
   \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ save)
@@ -159,6 +247,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -166,6 +256,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
+
 
 
 /**
@@ -184,16 +275,172 @@ function save({
 }) {
   const {
     text,
-    alignment
+    textAlignment,
+    shadow,
+    shadowOpacity
   } = attributes;
+  const classes = classnames__WEBPACK_IMPORTED_MODULE_2___default()(`text-box-align-${textAlignment}`, {
+    'has-shadow': shadow,
+    [`shadow-opacity-${shadowOpacity}`]: shadow && shadowOpacity
+  });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
-      className: `text-box-align-${alignment}`
+      className: classes
     }),
     value: text,
-    tagName: "h4"
+    tagName: "p"
   });
 }
+
+/***/ }),
+
+/***/ "./src/text-box/v1.js":
+/*!****************************!*\
+  !*** ./src/text-box/v1.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/text-box/block.json");
+
+
+
+
+const v1 = {
+  supports: {
+    html: false,
+    color: {
+      background: true,
+      text: true,
+      gradients: true
+    },
+    typography: {
+      fontSize: true
+    },
+    spacing: {
+      padding: true
+    }
+  },
+  attributes: {
+    ..._block_json__WEBPACK_IMPORTED_MODULE_3__.attributes,
+    text: {
+      type: 'string',
+      source: 'html',
+      selector: 'h4'
+    }
+  },
+  save: ({
+    attributes
+  }) => {
+    const {
+      text,
+      alignment,
+      shadow,
+      shadowOpacity
+    } = attributes;
+    const classes = classnames__WEBPACK_IMPORTED_MODULE_2___default()(`text-box-align-${alignment}`, {
+      'has-shadow': shadow,
+      [`shadow-opacity-${shadowOpacity}`]: shadow && shadowOpacity
+    });
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+      ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
+        className: classes
+      }),
+      value: text,
+      tagName: "h4"
+    });
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (v1);
+
+/***/ }),
+
+/***/ "./src/text-box/v2.js":
+/*!****************************!*\
+  !*** ./src/text-box/v2.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/text-box/block.json");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+const v2 = {
+  supports: {
+    html: false,
+    color: {
+      background: true,
+      text: true,
+      gradients: true
+    },
+    typography: {
+      fontSize: true
+    },
+    spacing: {
+      padding: true
+    }
+  },
+  attributes: {
+    ...(0,lodash__WEBPACK_IMPORTED_MODULE_4__.omit)(_block_json__WEBPACK_IMPORTED_MODULE_3__.attributes, ['textAlignment']),
+    alignment: {
+      type: 'string',
+      default: 'left'
+    }
+  },
+  migrate: attributes => {
+    return {
+      ...(0,lodash__WEBPACK_IMPORTED_MODULE_4__.omit)(attributes, ['alignment']),
+      textAlignment: attributes.alignment
+    };
+  },
+  save: ({
+    attributes
+  }) => {
+    const {
+      text,
+      alignment,
+      shadow,
+      shadowOpacity
+    } = attributes;
+    const classes = classnames__WEBPACK_IMPORTED_MODULE_2___default()(`text-box-align-${alignment}`, {
+      'has-shadow': shadow,
+      [`shadow-opacity-${shadowOpacity}`]: shadow && shadowOpacity
+    });
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+      ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
+        className: classes
+      }),
+      value: text,
+      tagName: "p"
+    });
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (v2);
 
 /***/ }),
 
@@ -203,6 +450,7 @@ function save({
   \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -215,6 +463,7 @@ __webpack_require__.r(__webpack_exports__);
   \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -227,7 +476,19 @@ __webpack_require__.r(__webpack_exports__);
   \************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["React"];
+
+/***/ }),
+
+/***/ "lodash":
+/*!*************************!*\
+  !*** external "lodash" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = window["lodash"];
 
 /***/ }),
 
@@ -237,6 +498,7 @@ module.exports = window["React"];
   \*************************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["blockEditor"];
 
 /***/ }),
@@ -247,7 +509,19 @@ module.exports = window["wp"]["blockEditor"];
   \********************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["blocks"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = window["wp"]["components"];
 
 /***/ }),
 
@@ -257,7 +531,94 @@ module.exports = window["wp"]["blocks"];
   \******************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "./node_modules/classnames/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/classnames/index.js ***!
+  \******************************************/
+/***/ ((module, exports) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = '';
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (arg) {
+				classes = appendClass(classes, parseValue(arg));
+			}
+		}
+
+		return classes;
+	}
+
+	function parseValue (arg) {
+		if (typeof arg === 'string' || typeof arg === 'number') {
+			return arg;
+		}
+
+		if (typeof arg !== 'object') {
+			return '';
+		}
+
+		if (Array.isArray(arg)) {
+			return classNames.apply(null, arg);
+		}
+
+		if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+			return arg.toString();
+		}
+
+		var classes = '';
+
+		for (var key in arg) {
+			if (hasOwn.call(arg, key) && arg[key]) {
+				classes = appendClass(classes, key);
+			}
+		}
+
+		return classes;
+	}
+
+	function appendClass (value, newClass) {
+		if (!newClass) {
+			return value;
+		}
+	
+		if (value) {
+			return value + ' ' + newClass;
+		}
+	
+		return value + newClass;
+	}
+
+	if ( true && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
 
 /***/ }),
 
@@ -267,7 +628,8 @@ module.exports = window["wp"]["i18n"];
   \*********************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/fascinate-text-box","version":"0.1.0","title":"Fascinate Text Box","category":"text","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"fascinate","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"text":{"type":"string","source":"html","selector":"h4"},"alignment":{"type":"string","default":"left"}}}');
+"use strict";
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"fascinate-block/text-box","version":"0.1.0","title":"Text Box","category":"fascinate","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false,"color":{"background":true,"text":true,"gradients":true},"typography":{"fontSize":true},"spacing":{"padding":true}},"styles":[{"name":"square","label":"Square","isDefault":true},{"name":"rounded","label":"Rounded","isDefault":false}],"textdomain":"fascinate","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"text":{"type":"string","source":"html","selector":"p"},"textAlignment":{"type":"string","default":"left"},"shadow":{"type":"boolean","default":false},"shadowOpacity":{"type":"number","default":30}}}');
 
 /***/ })
 

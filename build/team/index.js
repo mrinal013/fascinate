@@ -56,36 +56,11 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {Element} Element to render.
  */
-function Edit({
-  attributes,
-  setAttributes
-}) {
-  const {
-    text,
-    alignment
-  } = attributes;
-  const onChangeText = newText => {
-    setAttributes({
-      text: newText
-    });
-  };
-  const onChangeAlignment = newAlignment => {
-    setAttributes({
-      alignment: newAlignment
-    });
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentToolbar, {
-    onChange: onChangeAlignment,
-    value: alignment
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
-      className: `text-box-align-${alignment}`
-    }),
-    onChange: onChangeText,
-    value: text,
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Your Text', 'dope'),
-    tagName: "h4",
-    allowedFormats: []
+function Edit() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
+    allowedBlocks: ['fascinate-block/team-member']
   }));
 }
 
@@ -104,6 +79,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/team/edit.js");
 /* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/team/save.js");
 /* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/team/block.json");
+/* harmony import */ var _team_member__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./team-member */ "./src/team/team-member/index.js");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -123,6 +99,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -179,21 +156,38 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {Element} Element to render.
  */
-function save({
-  attributes
-}) {
-  const {
-    text,
-    alignment
-  } = attributes;
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
-    ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
-      className: `text-box-align-${alignment}`
-    }),
-    value: text,
-    tagName: "h4"
-  });
+function save() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks.Content, null));
 }
+
+/***/ }),
+
+/***/ "./src/team/team-member/index.js":
+/*!***************************************!*\
+  !*** ./src/team/team-member/index.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__.registerBlockType)('fascinate-block/team-member', {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Team member', 'fascinate'),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('A team member item', 'fascinate'),
+  icon: 'admin-users',
+  parent: ['fascinate-block/team-members'],
+  edit: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "edit"),
+  save: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "save")
+});
 
 /***/ }),
 
@@ -267,7 +261,7 @@ module.exports = window["wp"]["i18n"];
   \*****************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/fascinate-team","version":"0.1.0","title":"Fascinate Team Block","category":"text","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"fascinate","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"text":{"type":"string","source":"html","selector":"h4"},"alignment":{"type":"string","default":"left"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"fascinate-block/team-members","version":"0.1.0","title":"Team Members","category":"fascinate","icon":"groups","description":"A team members grid.","keywords":["Team","Members"],"example":{},"supports":{"html":false},"textdomain":"fascinate","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

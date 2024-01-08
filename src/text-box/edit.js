@@ -16,7 +16,12 @@ import {
 	RichText,
 	BlockControls,
 	AlignmentToolbar,
+	InspectorControls,
 } from '@wordpress/block-editor';
+
+import { PanelBody, RangeControl } from '@wordpress/components';
+
+import classNames from 'classnames';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -40,31 +45,66 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
-	const { text, alignment } = attributes;
+	const { text, textAlignment, shadow, shadowOpacity } = attributes;
 
 	const onChangeText = ( newText ) => {
 		setAttributes( { text: newText } );
 	};
 
 	const onChangeAlignment = ( newAlignment ) => {
-		setAttributes( { alignment: newAlignment } );
+		setAttributes( { textAlignment: newAlignment } );
 	};
+
+	const toggleShadow = () => {
+		setAttributes( { shadow: ! shadow } );
+	};
+
+	const onChangeShadowOpacity = ( newShadowOpacity ) => {
+		setAttributes( { shadowOpacity: newShadowOpacity } );
+	};
+
+	const classes = classNames( `text-box-align-${ textAlignment }`, {
+		'has-shadow': shadow,
+		[ `shadow-opacity-${ shadowOpacity }` ]: shadow && shadowOpacity,
+	} );
 	return (
 		<>
-			<BlockControls>
+			<InspectorControls group="styles">
+				{ shadow && (
+					<PanelBody title={ __( 'Shadow Setting', 'fascinate' ) }>
+						<RangeControl
+							label={ __( 'Shadow Opacity', 'fascinate' ) }
+							onChange={ onChangeShadowOpacity }
+							value={ shadowOpacity }
+							min={ 10 }
+							max={ 40 }
+							step={ 10 }
+						/>
+					</PanelBody>
+				) }
+			</InspectorControls>
+			<BlockControls
+				controls={ [
+					{
+						icon: 'admin-page',
+						title: __( 'Shadow', 'fascinated' ),
+						onClick: toggleShadow,
+					},
+				] }
+			>
 				<AlignmentToolbar
 					onChange={ onChangeAlignment }
-					value={ alignment }
+					value={ textAlignment }
 				/>
 			</BlockControls>
 			<RichText
 				{ ...useBlockProps( {
-					className: `text-box-align-${ alignment }`,
+					className: classes,
 				} ) }
 				onChange={ onChangeText }
 				value={ text }
-				placeholder={ __( 'Your Text', 'dope' ) }
-				tagName="h4"
+				placeholder={ __( 'Your Text', 'fascinate' ) }
+				tagName="p"
 				allowedFormats={ [] }
 			/>
 		</>
