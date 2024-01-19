@@ -11,7 +11,12 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import {
+	useBlockProps,
+	InnerBlocks,
+	InspectorControls,
+} from '@wordpress/block-editor';
+import { PanelBody, RangeControl } from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -34,10 +39,38 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit( { attributes, setAttributes } ) {
+	const { columns } = attributes;
+	const onChangeCoumns = ( newColumns ) => {
+		setAttributes( { columns: newColumns } );
+	};
 	return (
-		<div { ...useBlockProps() }>
-			<InnerBlocks allowedBlocks={ [ 'fascinate-block/team-member' ] } />
+		<div
+			{ ...useBlockProps( {
+				className: `has-${ columns }-columns`,
+			} ) }
+		>
+			<InspectorControls>
+				<PanelBody>
+					<RangeControl
+						label={ __( 'Columns', 'fascinate' ) }
+						min={ 1 }
+						max={ 6 }
+						onChange={ onChangeCoumns }
+						value={ columns }
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<InnerBlocks
+				allowedBlocks={ [ 'fascinate-block/team-member' ] }
+				orientation="horizontal"
+				template={ [
+					[ 'fascinate-block/team-member' ],
+					[ 'fascinate-block/team-member' ],
+					[ 'fascinate-block/team-member' ],
+				] }
+				// templateLock="insert"
+			/>
 		</div>
 	);
 }

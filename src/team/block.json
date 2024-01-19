@@ -12,6 +12,12 @@
 	"supports": {
 		"html": false
 	},
+	"attributes": {
+		"columns": {
+			"type": "number",
+			"default": 2
+		}
+	},
 	"textdomain": "fascinate",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
