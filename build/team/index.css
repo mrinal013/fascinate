@@ -120,5 +120,30 @@
   font-weight: 300;
   margin: 0;
 }
+.wp-block-fascinate-block-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="fascinate-block/team-member"] .wp-block-fascinate-team-member-social-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px -5px 0;
+}
+.wp-block-fascinate-block-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="fascinate-block/team-member"] .wp-block-fascinate-team-member-social-links ul li {
+  display: inline-block;
+  margin: 5px;
+}
+.wp-block-fascinate-block-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="fascinate-block/team-member"] .wp-block-fascinate-team-member-social-links ul li span.dashicon {
+  color: #4e4e4e;
+}
+.wp-block-fascinate-block-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="fascinate-block/team-member"] .wp-block-fascinate-team-member-social-links ul li.is-selected {
+  outline: 2px solid rgb(208, 40, 227);
+}
+.wp-block-fascinate-block-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="fascinate-block/team-member"] .wp-block-fascinate-team-member-social-links ul li button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin: 0;
+}
+.wp-block-fascinate-block-team-members > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-type="fascinate-block/team-member"] .wp-block-fascinate-team-member-social-links ul li.wp-block-fascinate-team-member-social-links-add-icon-li button {
+  outline: 1px dashed;
+}
 
 /*# sourceMappingURL=index.css.map*/

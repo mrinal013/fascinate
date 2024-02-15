@@ -10,7 +10,8 @@
 	"keywords": [ "Team", "Members" ],
 	"example": {},
 	"supports": {
-		"html": false
+		"html": false,
+		"align": [ "wide" ]
 	},
 	"attributes": {
 		"columns": {

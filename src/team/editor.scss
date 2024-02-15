@@ -66,6 +66,36 @@
 				font-weight: 300;
 				margin: 0;
 			}
+			.wp-block-fascinate-team-member-social-links {
+				ul {
+					list-style: none;
+					padding: 0;
+					margin: 15px -5px 0;
+					li {
+						display: inline-block;
+						margin: 5px;
+						span.dashicon {
+							color: #4e4e4e;
+						}
+
+						&.is-selected {
+							outline: 2px solid rgb(208, 40, 227);
+						}
+						button {
+							background: none;
+							border: none;
+							padding: 0;
+							cursor: pointer;
+							margin: 0;
+						}
+						&.wp-block-fascinate-team-member-social-links-add-icon-li {
+							button {
+								outline: 1px dashed;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
