@@ -46,5 +46,20 @@
   font-weight: 300;
   margin: 0;
 }
+.wp-block-fascinate-block-team-members .wp-block-fascinate-block-team-member .wp-block-fascinate-team-member-social-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px -5px 0;
+}
+.wp-block-fascinate-block-team-members .wp-block-fascinate-block-team-member .wp-block-fascinate-team-member-social-links ul li {
+  display: inline-block;
+  margin: 5px;
+}
+.wp-block-fascinate-block-team-members .wp-block-fascinate-block-team-member .wp-block-fascinate-team-member-social-links ul li a {
+  text-decoration: none;
+}
+.wp-block-fascinate-block-team-members .wp-block-fascinate-block-team-member .wp-block-fascinate-team-member-social-links ul li span.dashicon {
+  color: #4e4e4e;
+}
 
 /*# sourceMappingURL=style-index.css.map*/

@@ -18,10 +18,27 @@ import {
 	ToolbarButton,
 	PanelBody,
 	TextareaControl,
+	TextControl,
+	Button,
 	SelectControl,
 	Icon,
 	Tooltip,
 } from '@wordpress/components';
+
+import {
+	DndContext,
+	useSensor,
+	useSensors,
+	PointerSensor,
+} from '@dnd-kit/core';
+import {
+	SortableContext,
+	horizontalListSortingStrategy,
+	arrayMove,
+} from '@dnd-kit/sortable';
+import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
+
+import SortableItem from './sortable-item';
 
 function Edit( {
 	attributes,
@@ -35,8 +52,15 @@ function Edit( {
 	const [ selectedLink, setSelectedLink ] = useState();
 
 	const titleRef = useRef( url );
+
 	const prevURL = usePrevious( url );
 	const prevIsSelected = usePrevious( isSelected );
+
+	const sensors = useSensors(
+		useSensor( PointerSensor, {
+			activationConstraint: { distance: 5 },
+		} )
+	);
 
 	const imageObject = useSelect(
 		( select ) => {
@@ -108,6 +132,39 @@ function Edit( {
 		setSelectedLink( socialLinks.length );
 	};
 
+	const updateSocialItem = ( type, value ) => {
+		const socialLinksCopy = [ ...socialLinks ];
+		socialLinksCopy[ selectedLink ][ type ] = value;
+		setAttributes( { socialLinks: socialLinksCopy } );
+	};
+
+	const removeSocialLink = () => {
+		setAttributes( {
+			socialLinks: [
+				...socialLinks.slice( 0, selectedLink ),
+				...socialLinks.slice( selectedLink + 1 ),
+			],
+		} );
+		setSelectedLink();
+	};
+
+	const handleDragEnd = ( event ) => {
+		const { active, over } = event;
+		if ( active && over && active.id !== over.id ) {
+			const oldIndex = socialLinks.findIndex(
+				( i, index ) =>
+					active.id === `${ index }-${ i.icon }-${ i.link }`
+			);
+			const newIndex = socialLinks.findIndex(
+				( i, index ) => over.id === `${ index }-${ i.icon }-${ i.link }`
+			);
+			setAttributes( {
+				socialLinks: arrayMove( socialLinks, oldIndex, newIndex ),
+			} );
+			setSelectedLink( newIndex );
+		}
+	};
+
 	useEffect( () => {
 		if ( ! id && isBlobURL( url ) ) {
 			setAttributes( {
@@ -127,7 +184,7 @@ function Edit( {
 	}, [ url ] );
 
 	useEffect( () => {
-		if ( url && ! prevURL ) {
+		if ( url && ! prevURL && isSelected ) {
 			titleRef.current.focus();
 		}
 	}, [ url, prevURL ] );
@@ -215,30 +272,33 @@ function Edit( {
 				/>
 				<div className="wp-block-fascinate-team-member-social-links">
 					<ul>
-						{ socialLinks.map( ( item, index ) => {
-							return (
-								<li
-									key={ index }
-									className={
-										selectedLink === index
-											? 'is-selected'
-											: null
-									}
-								>
-									<button
-										aria-label={ __(
-											'Edit social link',
-											'fascinate'
-										) }
-										onClick={ () => {
-											setSelectedLink( index );
-										} }
-									>
-										<Icon icon={ item.icon } />
-									</button>
-								</li>
-							);
-						} ) }
+						<DndContext
+							sensors={ sensors }
+							onDragEnd={ handleDragEnd }
+							modifiers={ [ restrictToHorizontalAxis ] }
+						>
+							<SortableContext
+								items={ socialLinks.map(
+									( item, index ) =>
+										`${ index }-${ item.icon }-${ item.link }`
+								) }
+								strategy={ horizontalListSortingStrategy }
+							>
+								{ socialLinks.map( ( item, index ) => {
+									return (
+										<SortableItem
+											key={ `${ index }-${ item.icon }-${ item.link }` }
+											id={ `${ index }-${ item.icon }-${ item.link }` }
+											index={ index }
+											selectedLink={ selectedLink }
+											setSelectedLink={ setSelectedLink }
+											icon={ item.icon }
+										/>
+									);
+								} ) }
+							</SortableContext>
+						</DndContext>
+
 						{ isSelected && (
 							<li className="wp-block-fascinate-team-member-social-links-add-icon-li">
 								<Tooltip
@@ -261,6 +321,27 @@ function Edit( {
 						) }
 					</ul>
 				</div>
+				{ selectedLink !== undefined && (
+					<div className="wp-block-fascinate-team-member-social-link-form">
+						<TextControl
+							label={ __( 'Icon', 'fascinate' ) }
+							value={ socialLinks[ selectedLink ].icon }
+							onChange={ ( icon ) => {
+								updateSocialItem( 'icon', icon );
+							} }
+						/>
+						<TextControl
+							label={ __( 'URL', 'fascinate' ) }
+							value={ socialLinks[ selectedLink ].link }
+							onChange={ ( link ) => {
+								updateSocialItem( 'link', link );
+							} }
+						/>
+						<Button isDestructive onClick={ removeSocialLink }>
+							{ __( 'Remove link', 'fascinate' ) }
+						</Button>
+					</div>
+				) }
 			</div>
 		</>
 	);
